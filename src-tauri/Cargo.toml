@@ -1,0 +1,69 @@
+[package]
+name = "termworker"
+version = "0.1.1"
+description = "TermWorker - a clean, fast terminal for Serial, SSH, Telnet and raw TCP"
+license = "MIT OR Apache-2.0"
+edition = "2021"
+rust-version = "1.90"
+authors = ["DHPLab Consulting <donghyun.park@dhplab.com>"]
+homepage = "https://dhplab.com"
+publish = false
+
+[lib]
+# The `_lib` suffix avoids a name clash between the lib and bin targets on Windows.
+name = "termworker_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7", features = [] }
+
+[dependencies]
+tauri = { version = "2.12", features = [] }
+tauri-plugin-dialog = "2.8"
+tauri-plugin-clipboard-manager = "2.5"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "sync", "time"] }
+serialport = "4.10"
+# Pure-Rust SSH. `ring` backend instead of the default aws-lc-rs so Windows builds need no CMake/NASM.
+russh = { version = "0.65", default-features = false, features = ["flate2", "ring", "rsa"] }
+encoding_rs = "0.8"
+chrono = "0.4"
+thiserror = "2"
+log = "0.4"
+# Script engine: QuickJS-ng (MIT) through rquickjs (MIT). See src/script/.
+rquickjs = { version = "0.14", features = ["futures"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true
+
+# Non-blocking serial writes (src/transport/serial_unix.rs). MIT OR Apache-2.0.
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+# This PC's addresses (src/netcfg.rs). MIT OR BSD-3-Clause.
+# Windows uses GetAdaptersAddresses directly: if-addrs drops 169.254.x there.
+if-addrs = "0.15"
+
+# Overlapped serial I/O (src/transport/serial_win.rs). MIT OR Apache-2.0.
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = [
+    "Win32_Devices_Communication",
+    "Win32_Foundation",
+    "Win32_NetworkManagement_IpHelper",
+    "Win32_NetworkManagement_Ndis",
+    "Win32_Networking_WinSock",
+    "Win32_Security",
+    "Win32_Storage_FileSystem",
+    "Win32_System_IO",
+    "Win32_System_Registry",
+    "Win32_System_Threading",
+    "Win32_UI_Shell",
+] }
+
+[dev-dependencies]
+# Mock runtime for the script tests (src/script/tests.rs).
+tauri = { version = "2.12", features = ["test"] }
