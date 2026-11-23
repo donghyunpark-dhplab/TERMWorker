@@ -40,6 +40,14 @@ groups | grep dialout
 
 권한이 없으면 TermWorker가 "permission denied. Add your user to the "dialout" group…"이라고 안내합니다.
 
+### TFTP 서버의 69번 포트
+
+리눅스는 1024 아래 포트를 root만 열 수 있게 합니다. **deb로 설치하면** 설치 스크립트가 `setcap cap_net_bind_service=+ep /usr/bin/termworker`로 이 권한 하나만 주므로 TermWorker의 TFTP 서버가 69번에서 바로 동작합니다(업그레이드 때도 다시 줌). **AppImage**나 직접 빌드한 실행 파일은 6969처럼 1024 이상 포트를 쓰고, U-Boot에서 `setenv tftpdstp 6969`로 맞춥니다. 직접 빌드한 파일에 권한을 줄 때는 `sudo setcap cap_net_bind_service=+ep <실행 파일>`(`/tmp`처럼 `nosuid`로 마운트된 곳에서는 무시됨). 방화벽(ufw)이 켜져 있으면 요청 포트 하나만 열면 됩니다: `sudo ufw allow 69/udp`.
+
+### AppImage에 들어 있는 라이브러리
+
+AppImage는 설치 없이 돌도록 Ubuntu 22.04의 WebKitGTK·GTK·GLib 등을 함께 담습니다. 무엇이 어느 패키지(버전)에서 왔는지, 라이선스 전문과 소스 얻는 방법은 AppImage 안의 `usr/share/doc/termworker/BUNDLED-LIBRARIES.txt`에 있습니다(`./TermWorker*.AppImage --appimage-extract`로 풀어서 봄). GPL 전용 라이브러리는 넣지 않습니다. 그래서 GTK의 TIFF 이미지 로더(libtiff, libjbig)는 빠져 있습니다.
+
 ## 3. 소스 받기
 
 ```bash

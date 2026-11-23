@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "TermWorker",
-  "version": "0.1.1",
+  "version": "0.3.0",
   "identifier": "com.dhplab.termworker",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -30,9 +30,9 @@
     "targets": "all",
     "publisher": "DHPLab Consulting",
     "copyright": "© 2026 DHPLab Consulting",
-    "homepage": "https://dhplab.com",
+    "homepage": "https://dhplab.com/termworker/",
     "shortDescription": "Serial, SSH, Telnet and raw TCP terminal",
-    "longDescription": "TermWorker is a terminal for people who bring up boards, modems and routers. It opens Serial, SSH, Telnet and raw TCP consoles in tabs, reconnects USB-serial adapters by itself, transfers files with X/Y/ZMODEM (including to U-Boot), and shows RFC 1662 HDLC frames in a side panel.",
+    "longDescription": "TermWorker is a terminal for people who bring up boards, modems and routers. It opens Serial, SSH, Telnet and raw TCP consoles in tabs, reconnects USB-serial adapters by itself, transfers files with X/Y/ZMODEM (including to U-Boot), shows RFC 1662 HDLC frames in a side panel, runs JavaScript automation scripts, and has a built-in TFTP server.",
     "category": "DeveloperTool",
     "icon": [
       "icons/32x32.png",
@@ -40,6 +40,19 @@
       "icons/icon.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "resources": {
+      "../THIRD-PARTY-NOTICES.md": "THIRD-PARTY-NOTICES.md",
+      "../LICENSE-MIT": "LICENSE-MIT",
+      "../LICENSE-APACHE": "LICENSE-APACHE"
+    },
+    "linux": {
+      "deb": {
+        "depends": [
+          "libcap2-bin"
+        ],
+        "postInstallScript": "linux/postinst.sh"
+      }
+    }
   }
 }

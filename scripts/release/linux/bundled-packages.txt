@@ -1,0 +1,120 @@
+# Ubuntu 22.04 packages whose files the AppImage may carry, each checked for its licence.
+# build.sh fails when it bundles a package that is not listed here: check the licence of
+# the library itself in /usr/share/doc/<package>/copyright (Debian's "Files: *" line is the
+# source package's licence, which can be GPL while the library is LGPL), then add it.
+# Never add a package whose library is GPL-only. Reviewed 2026-11-23: all LGPL or
+# permissive. Notes on the ones whose copyright file looks GPL at first sight:
+#   libblkid1, libmount1  util-linux: the libraries are LGPL-2.1+
+#   libcolord2            colord: lib/colord is LGPL-2.1+
+#   libkeyutils1          keyutils: the library is LGPL-2.1+
+#   libidn2-0             LGPL-3+ or GPL-2+
+#   libdw1, libelf1       elfutils: LGPL-3+ or GPL-2+
+#   libffi8, libkrb5-3 and friends: MIT-style; GPL is mentioned only for build files
+# Left out on purpose (build.sh removes them): libjbig0 (GPL-2+) and libtiff5 with GTK's
+# TIFF image loader, which is the only thing that needs libjbig.
+dconf-gsettings-backend
+glib-networking
+libatk1.0-0
+libatk-bridge2.0-0
+libatomic1
+libatspi2.0-0
+libavahi-client3
+libavahi-common3
+libblkid1
+libbrotli1
+libbsd0
+libbz2-1.0
+libcairo2
+libcairo-gobject2
+libcap2
+libcolord2
+libcups2
+libdatrie1
+libdbus-1-3
+libdeflate0
+libdw1
+libelf1
+libenchant-2-2
+libepoxy0
+libevdev2
+libffi8
+libgcrypt20
+libgdk-pixbuf-2.0-0
+libglib2.0-0
+libgnutls30
+libgraphite2-3
+libgssapi-krb5-2
+libgstreamer1.0-0
+libgstreamer-gl1.0-0
+libgstreamer-plugins-base1.0-0
+libgtk-3-0
+libgudev-1.0-0
+libharfbuzz-icu0
+libhogweed6
+libhyphen0
+libicu70
+libidn2-0
+libjavascriptcoregtk-4.1-0
+libjpeg-turbo8
+libk5crypto3
+libkeyutils1
+libkrb5-3
+libkrb5support0
+liblcms2-2
+liblz4-1
+liblzma5
+libmanette-0.2-0
+libmd0
+libmount1
+libnettle8
+libnghttp2-14
+liborc-0.4-0
+libp11-kit0
+libpango-1.0-0
+libpangocairo-1.0-0
+libpangoft2-1.0-0
+libpcre2-8-0
+libpcre3
+libpixman-1-0
+libpng16-16
+libproxy1v5
+libpsl5
+librsvg2-2
+librsvg2-common
+libseccomp2
+libsecret-1-0
+libselinux1
+libsoup-3.0-0
+libsqlite3-0
+libsystemd0
+libtasn1-6
+libthai0
+libudev1
+libunistring2
+libunwind8
+libwayland-cursor0
+libwayland-egl1
+libwayland-server0
+libwebkit2gtk-4.1-0
+libwebp7
+libwebpdemux2
+libwebpmux3
+libwoff1
+libxau6
+libxcb-randr0
+libxcb-render0
+libxcb-shm0
+libxcomposite1
+libxcursor1
+libxdamage1
+libxdmcp6
+libxext6
+libxfixes3
+libxi6
+libxinerama1
+libxkbcommon0
+libxml2
+libxrandr2
+libxrender1
+libxslt1.1
+libzstd1

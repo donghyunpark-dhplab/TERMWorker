@@ -1,6 +1,6 @@
 # TermWorker User Manual
 
-**Version 0.2.0 · DRAFT · November 2026**
+**Version 0.3.0 · DRAFT · November 2026**
 DHPLab Consulting · dhplab.com
 
 > This is a draft. Screens and wording may still change before release.

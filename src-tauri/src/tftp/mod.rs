@@ -234,10 +234,12 @@ fn low_port_help(port: u16, alt: &str) -> String {
     if std::env::var_os("APPIMAGE").is_some() {
         return format!("{first}.");
     }
+    // The .deb package grants this in its postinst (src-tauri/linux/postinst.sh), again on
+    // every upgrade; getting here means that did not happen (or this is not the package).
     match std::env::current_exe() {
         Ok(exe) => format!(
-            "{first}, or allow low ports for TermWorker with: sudo setcap cap_net_bind_service=+ep '{}' \
-             (needed again after TermWorker is updated).",
+            "{first}, or allow low ports for TermWorker with: sudo setcap cap_net_bind_service=+ep '{}'. \
+             Installing the .deb package does this for you.",
             exe.display()
         ),
         Err(_) => format!("{first}."),

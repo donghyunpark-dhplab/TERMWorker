@@ -8,10 +8,10 @@ Ubuntu 22.04 to 26.04. There is no macOS build.
 
 Product page: https://dhplab.com/termworker/
 
-**Status.** There is no binary release yet. `main` is development code: it is ahead of the last internal
-build (0.1.1) and already contains scripting and the TFTP server and adapter settings planned for the next
-releases. Version numbers are updated when installers are built. Linux packages (.deb, AppImage) are built
-from `scripts/release/linux/`; a Windows installer is planned.
+**Download.** Installers are on the [Releases page](https://github.com/donghyunpark-dhplab/TERMWorker/releases):
+a Windows setup program and Linux `.deb` / AppImage packages, with SHA-256 checksums. They are not code-signed
+yet, so Windows SmartScreen may warn on first run ("More info" → "Run anyway"). `main` may be ahead of the
+latest release; the manuals under `docs/manual/` are still drafts.
 
 **Support** is best effort. Please report bugs and requests in
 [GitHub issues](https://github.com/donghyunpark-dhplab/TERMWorker/issues); report security issues privately
@@ -108,4 +108,3 @@ The TermWorker name and the DHPLab logo (`public/dhplab-logo-dark.svg`) are not 
 licences and may not be used for other products without permission.
 
 Third-party components and their licences are listed in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
-
