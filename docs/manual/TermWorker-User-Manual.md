@@ -1,6 +1,6 @@
 # TermWorker User Manual
 
-**Version 0.3.0 · DRAFT · November 2026**
+**Version 0.3.1 · DRAFT · November 2026**
 DHPLab Consulting · dhplab.com
 
 > This is a draft. Screens and wording may still change before release.
@@ -41,7 +41,7 @@ Each connection opens in its own tab. Some features matter most for hardware wor
 - Logs can carry a millisecond timestamp on every line.
 - JavaScript scripts can automate repetitive work.
 
-TermWorker runs on Linux. A Windows version is planned.
+TermWorker runs on Windows 10 and 11, and on Linux.
 
 ---
 
@@ -66,7 +66,13 @@ sudo usermod -aG dialout $USER
 
 ### Windows
 
-A Windows installer will follow. TermWorker uses the WebView2 runtime, which is already part of Windows 10 (current updates) and Windows 11.
+Run `TermWorker_<version>_x64-setup.exe` and approve the administrator prompt. TermWorker is installed for all users in `C:\Program Files\TermWorker`, and appears in the Start menu.
+
+- The install folder is added to the system `PATH`, so `termworker` also starts from a command prompt. Terminal windows that were already open do not see the change; open a new one.
+- If TermWorker 0.3.0 is installed (it was installed per user, under `%LOCALAPPDATA%\TermWorker`), the installer removes it first. Your saved sessions and settings are kept.
+- To uninstall, use **Settings → Apps → Installed apps → TermWorker**. Uninstalling also takes the folder out of `PATH`. Saved sessions are kept unless you tick the option to delete app data.
+
+TermWorker uses the WebView2 runtime, which is already part of Windows 10 (current updates) and Windows 11. The installer downloads it if it is missing.
 
 ---
 

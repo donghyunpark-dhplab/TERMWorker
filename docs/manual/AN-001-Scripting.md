@@ -1,6 +1,6 @@
 # AN-001: Automating Board Bring-up with TermWorker Scripts
 
-**Application Note · TermWorker 0.3.0 · DRAFT · November 2026**
+**Application Note · TermWorker 0.3.1 · DRAFT · November 2026**
 DHPLab Consulting · dhplab.com
 
 > This is a draft. The script API is new and may still be extended before release.

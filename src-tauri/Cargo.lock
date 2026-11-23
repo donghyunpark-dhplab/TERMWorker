@@ -5058,7 +5058,7 @@ dependencies = [
 
 [[package]]
 name = "termworker"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "chrono",
  "encoding_rs",
