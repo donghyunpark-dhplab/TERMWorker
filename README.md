@@ -4,6 +4,8 @@ A clean, fast terminal for **Serial, SSH, Telnet and raw TCP**, built for embedd
 Desktop app for Windows and Linux (Tauri 2 + Rust backend + xterm.js frontend), tested on Windows 11 and
 Ubuntu 22.04 to 26.04. There is no macOS build.
 
+![TermWorker main window with saved sessions and a connected console](docs/images/main.png)
+
 **Why it exists.** Bringing up boards and testing in the field, I kept wishing my terminal did a few things a little differently. TermWorker gathers those wishes into one tool. I am sharing the source as well, in the hope that it is of some help to people doing similar work.
 
 Product page: https://dhplab.com/termworker/
@@ -37,6 +39,34 @@ as described in [SECURITY.md](SECURITY.md).
 
 Passwords and passphrases are never written to disk. TermWorker sends nothing over the network on its own:
 no update checks, no telemetry.
+
+## Loading an image into U-Boot
+
+From the board's serial console, TermWorker covers the usual ways to get an image into U-Boot:
+
+- **TFTP.** Start the built-in TFTP server from the status bar and pick the folder with your images.
+  TermWorker lists this PC's addresses and types `setenv serverip …` into the tab; then run `tftpboot` at
+  the U-Boot prompt. If the board is cabled straight to the PC, **PC network adapters** can give that
+  adapter a static address on the board's network. On Linux, port 69 needs permission: the `.deb` sets
+  this up; with the AppImage, use a port above 1023, and the `setenv` line TermWorker types into the tab
+  then adds `setenv tftpdstp <port>` for U-Boot.
+- **Over the serial line.** Type `loady <address>` (or `loadx`) at the U-Boot prompt, then choose
+  **Transfer → Send file → YMODEM** (or XMODEM).
+- **As a script.** The same steps can run unattended and end with PASS or FAIL
+  ([examples/scripts/uboot-tftp-short.js](examples/scripts/uboot-tftp-short.js)):
+
+```js
+const s = tab;                                        // the serial tab the script runs in
+await s.waitFor("Hit any key", { timeout: 0 });      // power the board on
+s.send(" ");                                          // stop autoboot
+await s.waitFor(/=> $/);
+await s.command("setenv serverip 192.168.1.10; setenv ipaddr 192.168.1.1", { prompt: /=> $/ });
+s.sendLine("tftpboot 0x80000000 fw.bin");
+const r = await s.waitForAny([/Bytes transferred = (\d+) /, /TIMEOUT|not found/], { timeout: 120000 });
+await ui.result(r.index === 0 ? "PASS" : "FAIL", r.match);
+```
+
+![TermWorker running a script on a U-Boot console, with the PASS result in the Script output panel](docs/images/script.png)
 
 ## Documentation
 
